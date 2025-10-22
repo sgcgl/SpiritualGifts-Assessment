@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spiritual Gifts Assessment</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body class="bg-gray-50">
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState } = React;
+
+    const questions = [
+      "I like organizing services and events.",
+      "I enjoy starting new churches.",
+      "Working with my hands is fun for me.",
+      "I can tell when someone is insincere.",
+      "I pray for the lost daily.",
+      "Encouraging others is a high priority in my life.",
+      "Believing God for our daily needs is important to me.",
+      "Influencing others for the Kingdom of God through finances is extremely important to me.",
+      "I look for opportunities to pray for the sick.",
+      "I enjoy doing the little things that others do not.",
+      "Having people over to my house is something I do often.",
+      "Spending hours in prayer for other people is very enjoyable to me.",
+      "Education is very important to me.",
+      "I tend to motivate others to get involved.",
+      "My heart hurts when I see others hurting.",
+      "I believe God will use me to enact His miracles.",
+      "I enjoy sharing the gospel with other people groups and nationalities.",
+      "I’ve devoted considerable time to mastering my voice and/or instrument.",
+      "Caring for the hurting is paramount in my eyes.",
+      "The willful sin of others really aggravates me.",
+      "I enjoy serving behind the scenes.",
+      "I like creating outlines of the Bible.",
+      "God has used me to interpret a heavenly language.",
+      "I enjoy the book of Proverbs more than any other book in the Bible.",
+      "I am passionate about managing details.",
+      "I prefer to pioneer new ministry projects.",
+      "I consider myself a craftsman or craftswoman.",
+      "I sense when situations are spiritually unhealthy.",
+      "I am greatly concerned about seeing the lost saved.",
+      "I try to come across loving and caring.",
+      "Asking God for a list of big things is exciting to me.",
+      "I find ways to give offerings above my tithe.",
+      "I believe miraculous healing is for this day and age.",
+      "Helping others is one of my highest achievements.",
+      "Creating a warm and welcoming home is important to me.",
+      "I am burdened to pray for situations in the world.",
+      "People seek me out to learn more about the Kingdom of God.",
+      "I prefer to take the lead whenever necessary.",
+      "I’m very sensitive to sad stories.",
+      "Miracles often happen when I’m nearby.",
+      "Living in another country to benefit the gospel is exciting to me.",
+      "I desire to serve the church through worship.",
+      "I enjoy connecting, caring for, and coaching others.",
+      "Confronting someone with sin in their life is not hard.",
+      "It bothers me when people sit around and do nothing.",
+      "I share Biblical truth with others in hopes of their personal growth.",
+      "I pray in tongues daily.",
+      "When I study scripture God gives me unique insights.",
+      "Creating a task list is easy and enjoyable for me.",
+      "I am attracted to ministries that start new churches.",
+      "Building something with my hands is very rewarding to me.",
+      "I can pinpoint issues or problems before others.",
+      "I enjoy sharing the gospel with a total stranger.",
+      "I look for ways to be an encouragement to other people.",
+      "I trust that God has my back in every situation.",
+      "Making more money means that I can give more.",
+      "God has used me to bring healing to those who are sick.",
+      "Being a part of the process is fulfilling to me.",
+      "I tend to make total strangers feel at home.",
+      "People often describe me as a prayer warrior.",
+      "I enjoy knowing biblical details and helping others understand.",
+      "I delegate responsibilities to accomplish tasks.",
+      "I am motivated to help those who are less fortunate.",
+      "I have a constant hunger to see God’s miraculous power.",
+      "I focus a lot on reaching the world for Christ.",
+      "I gain my deepest satisfaction through leading others in vocal or instrumental worship.",
+      "I enjoy walking with someone in times of difficulty.",
+      "I enjoy hearing passionate and clear preaching of the truth.",
+      "I like to do small things that others pass over.",
+      "I prefer to teach the Bible topically rather than verse by verse.",
+      "Praying in the Spirit is encouraging and important to me.",
+      "When faced with difficulty I tend to make wise decisions and choices."
+    ];
+
+    const groupDescriptions = {
+      A: "The gift of administration is the divine strength or ability to organize multiple tasks and groups of people to accomplish these tasks. (Luke 14:28–30; Acts 6:1–7)",
+      B: "The gift of apostleship is the divine strength or ability to pioneer new churches and ministries through planting, overseeing, and training. Acts 15:22-35; 1 Corinthians 12:28; 2 Corinthians 12:12; Galatians 2:7-10; Ephesians 4:11-14",
+      C: "The gift of craftsmanship is the divine strength or ability to plan, build, and work with your hands in construction environments to accomplish multiple ministry applications. Exodus 30:22, 31:3-11; 2 Chronicles 34:9-13; Acts 18:2-3",
+      D: "The gift of discernment is the divine strength or ability to spiritually identify falsehood and to distinguish between right and wrong motives and situations. Matthew 16:21-23; Acts 5:1-11, 16:16-18; 1 Corinthians 12:10; 1 John 4:1-6",
+      E: "The gift of evangelism is the divine strength or ability to help non-Christians take the necessary steps to becoming a born-again Christian. Acts 8:5-6, 8:26-40, 14:21, 21:8; Ephesians 4:11-14",
+      F: "The gift of exhortation is the divine strength or ability to encourage others through the written or spoken word and Biblical truth. Acts 14:22; Romans 12:8; 1 Timothy 4:13; Hebrews 10:24-25",
+      G: "The gift of faith is the divine strength or ability to believe in God for unseen supernatural results in every arena of life. Acts 11:22-24; Romans 4:18-21; 1 Corinthians 12:9; Hebrews 11",
+      H: "The gift of giving is the divine strength or ability to produce wealth and to give by tithes and offerings for the purpose of advancing the Kingdom of God on earth. Mark 12:41-44; Romans 12:8; 2 Corinthians 8:1-7, 9:2-7",
+      I: "The gift of healing is the divine strength or ability to act as an intermediary in faith, prayer, and by the laying- on of hands for the healing of physical and mental illnesses. Acts 3:1-10, 9:32-35, 28:7-10; 1 Corinthians 12:9, 28",
+      J: "The gift of helps is the divine strength or ability to work in a supportive role for the accomplishment of tasks in Christian ministry. Mark 15:40-41; Acts 9:36; Romans 16:1-2; 1 Corinthians 12:28",
+      K: "The gift of hospitality is the divine strength or ability to create warm, welcoming environments for others in places such as your home, office, or church. Acts 16:14-15; Romans 12:13, 16:23; Hebrews 13:1-2; 1 Peter 4:9",
+      L: "The gift of intercession is the divine strength or ability to stand in the gap in prayer for someone, something, or someplace, believing for profound results. Hebrews 7:25; Colossians 1:9-12, 4:12-13; James 5:14-16",
+      M: "The gift of knowledge is the divine strength or ability to understand and to bring clarity to situations and circumstances often accompanied by a word from God. Acts 5:1-11; 1 Corinthians 12:8; Colossians 2:2-3",
+      N: "The gift of leadership is the divine strength or ability to influence people at their level while directing and focusing them on the big picture, vision, or idea. Romans 12:8; 1 Timothy 3:1-13, 5:17; Hebrews 13:17",
+      O: "The gift of mercy is the divine strength or ability to feel empathy and to care for those who are hurting in any way. Matthew 9:35-36; Mark 9:41; Romans 12:8; 1 Thessalonians 5:14",
+      P: "The gift of miracles is the divine strength or ability to alter the natural outcomes of life in a supernatural way through prayer, faith, and divine direction. Acts 9:36-42, 19:11-12, 20:7-12; Romans 15:18-19; 1 Corinthians 12:10, 28",
+      Q: "The gift of missions is the divine strength or ability to reach others outside of your culture and nationality, while in most cases living in that culture or nation. Acts 8:4, 13:2-3, 22:21; Romans 10:15",
+      R: "The gift of music/worship is the divine strength or ability to sing, dance, or play an instrument primarily for the purpose of helping others worship God. Deuteronomy 31:22; 1 Samuel 16:16; 1 Chronicles 16:41-42; 2 Chronicles 5:12-13, 34:12; Psalm 150",
+      S: "The gift of pastor/shepherd is the divine strength or ability to care for the personal needs of others by nurturing and mending life issues. John 10:1-18; Ephesians 4:11-14; 1 Timothy 3:1-7; 1 Peter 5:1-3",
+      T: "The gift of prophecy is the divine strength or ability to boldly speak and bring clarity to scriptural and doctrinal truth, in some cases foretelling God’s plan. Acts 2:37-40, 7:51-53, 26:24-29; 1 Corinthians 14:1-4; 1 Thessalonians 1:5",
+      U: "The gift of serving is the divine strength or ability to do small or great tasks in working for the overall good of the body of Christ. Acts 6:1-7; Romans 12:7; Galatians 6:10; 1 Timothy 1:16-18; Titus 3:14",
+      V: "The gift of teaching is the divine strength or ability to study and learn from the Scriptures primarily to bring understanding and depth to other Christians. Acts 18:24-28, 20:20-2 1; 1 Corinthians 12:28; Ephesians 4:11-14",
+      W: "The gift of tongues is the divine strength or ability to pray in a heavenly language to encourage your spirit and to commune with God. The gift of tongues is often accompanied by interpretation and should be used appropriately. Acts 2:1-13; 1 Corinthians 12:10, 14:1-14",
+      X: "The gift of wisdom is the divine strength or ability to apply the truths of Scripture in a practical way, producing the fruitful outcome and character of Jesus Christ. Acts 6:3,10; 1 Corinthians 2:6-13, 12:8"
+    };
+    
+    const groupLabels = {
+  A: "ADMINISTRATION",
+  B: "APOSTLESHIP",
+  C: "CRAFTSMANSHIP",
+  D: "DISCERNMENT",
+  E: "EVANGELISM",
+  F: "EXHORTATION",
+  G: "FAITH",
+  H: "GIVING",
+  I: "HEALING",
+  J: "HELPS",
+  K: "HOSPITALITY",
+  L: "INTERCESSION",
+  M: "KNOWLEDGE",
+  N: "LEADERSHIP",
+  O: "MERCY",
+  P: "MIRACLES",
+  Q: "MISSIONARY",
+  R: "MUSIC/WORSHIP",
+  S: "PASTOR/SHEPHERD",
+  T: "PROPHECY",
+  U: "SERVICE",
+  V: "TEACHING",
+  W: "TONGUES (AND INTERPRETATION)",
+  X: "WISDOM"
+};
+
+    const groups = Object.keys(groupDescriptions);
+
+    function SpiritualGiftsAssessment() {
+      const [answers, setAnswers] = useState(Array(72).fill(""));
+      const [results, setResults] = useState(null);
+
+      const handleChange = (index, value) => {
+        const updated = [...answers];
+        updated[index] = Number(value);
+        setAnswers(updated);
+      };
+
+      const handleSubmit = () => {
+        if (answers.includes("")) {
+          alert("Please answer all questions before submitting.");
+          return;
+        }
+
+        const scores = {};
+        groups.forEach((group, i) => {
+          scores[group] = answers[i] + answers[i + 24] + answers[i + 48];
+        });
+
+        const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+        const top3 = sorted.slice(0, 3);
+        setResults({ sorted, top3 });
+      };
+
+      return (
+        <div className="p-6 max-w-5xl mx-auto">
+          <h1 className="text-3xl font-bold mb-2 text-center">Spiritual Gifts Assessment</h1>
+          <p className="text-center mb-6 text-gray-700">
+            <strong>Instructions</strong> <br /> The results will not be saved. Please print, take a screenshot or take note of your results after you submit the assessment. <br />
+            <strong>Step 1:</strong> Rank each statement from <em>almost never</em> to <em>almost always</em>. <br />
+            <strong>Step 2:</strong> Read about your gifting!
+          </p>
+
+          {!results ? (
+            <>
+              {questions.map((q, i) => (
+                <div key={i} className="mb-4 border-b pb-2">
+                  <p className="font-medium mb-1">{i + 1}. {q}</p>
+                  <div className="flex flex-col space-y-1 ml-4">
+                    {[1, 2, 3, 4, 5].map((val) => (
+                      <label key={val} className="flex items-center space-x-2">
+                        <input
+                          type="radio"
+                          name={`q${i}`}
+                          value={val}
+                          checked={answers[i] === val}
+                          onChange={(e) => handleChange(i, e.target.value)}
+                        />
+                        <span>
+                          {val} — {["Almost Never", "Seldom", "Sometimes", "Usually", "Almost Always"][val - 1]}
+                        </span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+              ))}
+
+              <button
+                onClick={handleSubmit}
+                className="bg-blue-600 text-white px-6 py-2 rounded mt-6 hover:bg-blue-700"
+              >
+                Submit
+              </button>
+            </>
+          ) : (
+            <div className="mt-8">
+              <div className="flex justify-between items-start">
+                <div className="w-2/3">
+                  <h2 className="text-2xl font-semibold mb-4">Results by Group</h2>
+                  <ul>
+                    {results.sorted.map(([group, score], i) => (
+                      <li key={group} className={`py-1 ${i < 3 ? 'font-bold text-blue-700' : ''}`}>
+                      {group}. {groupLabels[group]} = {score}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="w-1/3 pl-6 border-l">
+                  <h2 className="text-xl font-semibold mb-2">Top 3 Results</h2>
+                  {results.top3.map(([group, score]) => (
+                    <div key={group} className="mb-4">
+                      <h3 className="font-bold text-blue-700">
+                        {group} — {groupLabels[group]}
+                      </h3>
+                      <p className="text-sm font-semibold mt-1">Score: {score}</p>
+                      <p className="text-sm text-gray-700 mt-1">
+                        {groupDescriptions[group]}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <button
+                onClick={() => window.print()}
+                className="mt-6 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+              >
+                Print My Results
+              </button>
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<SpiritualGiftsAssessment />);
+  </script>
+</body>
+</html>
