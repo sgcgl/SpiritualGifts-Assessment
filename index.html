@@ -248,6 +248,54 @@
             buttons.forEach(btn => (btn.style.display = ""));
           });
       };
+      
+      const handlePrint = () => {
+        const fullPage = document.body;
+        const resultsSection = document.getElementById("results-section");
+
+        // Clone the results section to print only that content
+        const printContent = resultsSection.cloneNode(true);
+
+        // Remove print-only buttons
+        printContent.querySelectorAll(".no-print").forEach(btn => btn.remove());
+
+        // Create a new printable window
+        const printWindow = window.open("", "_blank");
+        printWindow.document.write(`
+          <html>
+            <head>
+              <title>Spiritual Gifts Results</title>
+              <style>
+                body {
+                  font-family: sans-serif;
+                  color: #111827;
+                  padding: 20px;
+                  line-height: 1.4;
+                }
+                h2, h3, h4 { margin-bottom: 0.3rem; }
+                p, li { margin-bottom: 0.2rem; }
+                ul { list-style: none; padding: 0; }
+                #results-section { width: 100%; max-width: 700px; margin: auto; }
+                .no-print { display: none !important; }
+                .results-list { margin-bottom: 20px; }
+                @page { size: letter portrait; margin: 0.5in; }
+              </style>
+            </head>
+            <body>
+              ${printContent.outerHTML}
+            </body>
+          </html>
+        `);
+        printWindow.document.close();
+
+        // Wait for styles to load before printing
+        printWindow.onload = () => {
+          printWindow.focus();
+          printWindow.print();
+          printWindow.close();
+        };
+      };
+
 
       return (
         <div className="p-4 max-w-5xl mx-auto text-gray-900">
@@ -330,8 +378,8 @@
 
               <div className="flex gap-3 mt-4 justify-center no-print">
                 <button
-                  onClick={() => window.print()}
-                  className="bg-green-600 text-white px-3 py-1.5 rounded hover:bg-green-700 text-sm"
+                  onClick={handlePrint}
+                  className="bg-green-600 text-white px-3 py-1.5 rounded hover:bg-green-700 text-sm no-print"
                 >
                   Print My Results
                 </button>
