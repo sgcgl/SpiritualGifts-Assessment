@@ -261,6 +261,8 @@
 
         // Create a new printable window
         const printWindow = window.open("", "_blank");
+        
+        printWindow.document.open();
         printWindow.document.write(`
           <html>
             <head>
@@ -287,13 +289,20 @@
           </html>
         `);
         printWindow.document.close();
-
+        
+        // ✅ Trigger print immediately after writing
+        printWindow.focus();
+        
         // Wait for styles to load before printing
-        printWindow.onload = () => {
-          printWindow.focus();
+        // printWindow.onload = () => {
+        //   printWindow.focus();
+        //   printWindow.print();
+        //   printWindow.close();
+        // };
+        setTimeout(() => {
           printWindow.print();
           printWindow.close();
-        };
+        }, 300);
       };
 
 
