@@ -45,6 +45,10 @@
         white-space: normal !important;
         overflow: visible !important;
       }
+      
+      #results-section .no-print {
+       display: none !important;
+      }
 
       #results-section {
         page-break-inside: avoid;
@@ -221,9 +225,12 @@
       };
 
       const handleSavePDF = () => {
-        // Ensure full section (including both columns) is captured on all devices
         const element = document.getElementById("results-section");
-        element.style.display = "block";
+
+        // Hide buttons before generating PDF
+        const buttons = element.querySelectorAll(".no-print");
+        buttons.forEach(btn => (btn.style.display = "none"));
+
         const opt = {
           margin: 0.3,
           filename: "Spiritual-Gifts-Results.pdf",
@@ -231,9 +238,15 @@
           html2canvas: { scale: 2, useCORS: true, scrollY: 0 },
           jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
         };
-        window.html2pdf().set(opt).from(element).save().then(() => {
-          element.style.display = "";
-        });
+
+        window.html2pdf()
+          .set(opt)
+          .from(element)
+          .save()
+          .then(() => {
+            // Restore buttons after PDF generation
+            buttons.forEach(btn => (btn.style.display = ""));
+          });
       };
 
       return (
@@ -315,7 +328,7 @@
                     
                   </div>
 
-              <div className="flex gap-3 mt-4 justify-center">
+              <div className="flex gap-3 mt-4 justify-center no-print">
                 <button
                   onClick={() => window.print()}
                   className="bg-green-600 text-white px-3 py-1.5 rounded hover:bg-green-700 text-sm"
