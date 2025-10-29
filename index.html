@@ -290,19 +290,14 @@
         `);
         printWindow.document.close();
         
-        // ✅ Trigger print immediately after writing
+        // Ensure the print dialog always opens
         printWindow.focus();
-        
-        // Wait for styles to load before printing
-        // printWindow.onload = () => {
-        //   printWindow.focus();
-        //   printWindow.print();
-        //   printWindow.close();
-        // };
-        setTimeout(() => {
-          printWindow.print();
+        printWindow.print();
+
+        // Optional: close window after printing (some browsers ignore this)
+        printWindow.onafterprint = () => {
           printWindow.close();
-        }, 300);
+        };
       };
 
 
